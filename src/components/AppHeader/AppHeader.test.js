@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { mount } from '@vue/test-utils'
 import AppHeader from './AppHeader.vue'
 
@@ -9,6 +10,8 @@ describe('test AppHeader', () => {
       },
     })
     expect(wrapper.html().includes('Мой автопарк')).toBe(true)
+    expect(wrapper.html().includes('Машина: нет')).toBe(true)
+    expect(wrapper.html().includes(moment().format('YYYY-MM-DD'))).toBe(true)
   })
 
   it('test class', () => {

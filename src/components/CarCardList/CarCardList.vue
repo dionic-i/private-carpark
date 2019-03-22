@@ -10,13 +10,15 @@
         <div class="column is-one-quarter" v-for="car in cars">
           <car-card
                   :key="car.id"
+                  :car-id="car.id"
                   :title="car.title"
                   :description="car.description"
                   :max-speed="car.maxSpeed"
                   :current-run="car.currentRun"
                   :photo="car.photo"
-                  :is-active="car.isActive"
-                  @toggle-booking="book => onToggleBook(book, car)"
+                  :is-booked="car.isBooked"
+                  v-bind="$attrs"
+                  v-on="$listeners"
           ></car-card>
         </div>
       </template>
@@ -29,7 +31,7 @@
 
 <script>
 
-  import CarCard from '../CarCard/CarCard.vue'
+  import { CarCard } from '../CarCard'
 
   export default {
     name: 'CarCardList',
@@ -50,12 +52,8 @@
       emptyText: {
         type: String,
         default: 'У вас пока нет машин...'
-      }
+      },
     },
-    methods: {
-      onToggleBook(book, car) {
-      }
-    }
   }
 </script>
 

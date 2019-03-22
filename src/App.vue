@@ -11,24 +11,36 @@
       <!-- Main section -->
       <div class="columns">
         <div class="column is-9 has-border-right">
-          <car-card-list :cars="cars"></car-card-list>
+          <car-card-list
+                  :cars="carItems"
+                  :booked-days="bookedDays"
+                  @add-car-booking="onAddBooking"
+                  @cancel-car-booking="onCancelBooking"
+          ></car-card-list>
         </div>
         <div class="column is-3">
-          <cars-filter></cars-filter>
-          <!-- Карточка сегодняшней машины -->
+          <cars-filter
+                  :speed-range="speedRange"
+                  :run-range="runRange"
+                  @change-speed="onChangeSpeed"
+                  @change-run="onChangeRun"
+          ></cars-filter>
         </div>
       </div>
     </div>
 
     <b-loading :active.sync="isLoading" :can-cancel="true"></b-loading>
+
+    <portal-target name="modals"></portal-target>
   </div>
 </template>
 
 <script>
+  import { get, call } from 'vuex-pathify'
 
-  import AppHeader from './components/AppHeader/AppHeader.vue'
-  import CarCardList from './components/CarCardList/CarCardList.vue'
-  import CarsFilter from './components/CarsFilter/CarsFilter.vue'
+  import { AppHeader } from './components/AppHeader'
+  import { CarCardList } from './components/CarCardList'
+  import { CarsFilter } from './components/CarsFilter'
 
   export default {
     name: 'app',
@@ -40,27 +52,33 @@
     data: function () {
       return {
         title: 'Мой автопарк',
-        isLoading: false,
-        cars: []
       }
+    },
+    computed: {
+      ...get('cars', [
+        'speedRange',
+        'runRange',
+        'carItems',
+        'isLoading',
+        'speedValue',
+        'runValue',
+        'bookedDays'
+      ]),
     },
     methods: {
-      loadCars() {
-        return new Promise((resolve) => {
-          const data = require('./data/cars.json')
-          setTimeout(() => {
-            resolve(data.cars)
-          }, 200)
-        })
-      }
+      load: call('cars/LoadInfo'),
+      filter: call('cars/ChangeFilter'),
+      onAddBooking: call('cars/AddCarBooking'),
+      onCancelBooking: call('cars/CancelCarBooking'),
+      onChangeSpeed(value) {
+        this.filter({ name: 'speedValue', value })
+      },
+      onChangeRun(value) {
+        this.filter({ name: 'runValue', value })
+      },
     },
     mounted() {
-      const me = this
-      me.isLoading = true
-      me.loadCars().then((cars) => {
-        me.isLoading = false
-        me.cars = cars
-      })
+      this.load()
     }
   }
 </script>

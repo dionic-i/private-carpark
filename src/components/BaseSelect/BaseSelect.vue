@@ -2,8 +2,8 @@
   <b-select
           ref="selectElement"
           v-bind="selectOptions"
+          v-on="$listeners"
           :value="value"
-          @input="selectItem"
   >
     <option
             v-for="item in selectItems"
@@ -48,15 +48,8 @@
       }
     },
     data() {
-      const selectItems = [...this.items]
-      if (this.withEmpty) {
-        selectItems.unshift({
-          [this.idField]: 0,
-          [this.nameField]: '',
-        })
-      }
       return {
-        selectItems
+        selectItems: this.getComboItems()
       }
     },
     computed: {
@@ -76,6 +69,21 @@
         if (this.$refs.selectElement && this.$refs.selectElement.focus) {
           this.$refs.selectElement.focus()
         }
+      },
+      getComboItems() {
+        const selectItems = [...this.items]
+        if (this.withEmpty) {
+          selectItems.unshift({
+            [this.idField]: 0,
+            [this.nameField]: '',
+          })
+        }
+        return selectItems
+      }
+    },
+    watch: {
+      items: function () {
+        this.selectItems = this.getComboItems()
       }
     }
   }

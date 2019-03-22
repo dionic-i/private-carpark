@@ -1,5 +1,5 @@
 <template>
-  <div :class="['card', isActive ? 'active' : '']">
+  <div :class="['card', isBooked ? 'active' : '']">
     <div class="card-image">
       <figure class="image is-4by3">
         <img :src="photo" alt="Car image" />
@@ -20,19 +20,31 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a href="#" :class="['card-footer-item', isActive ? 'has-text-danger' : 'has-text-success']"
-         @click.prevent="toggleBooking"
-      >
-        {{ linkText }}
-      </a>
+      <toggle-car-booking-button
+              :car-id="carId"
+              :title="title"
+              :is-allowed-booking="!isBooked"
+              v-bind="$attrs"
+              v-on="$listeners"
+      ></toggle-car-booking-button>
     </footer>
   </div>
 </template>
 
 <script>
+
+  import { ToggleCarBookingButton } from '../ToggleCarBookingButton'
+
   export default {
     name: 'CarCard',
+    components: {
+      ToggleCarBookingButton
+    },
     props: {
+      carId: {
+        type: Number,
+        required: true
+      },
       title: {
         type: String,
         required: true
@@ -53,19 +65,14 @@
         type: Number,
         required: true
       },
-      isActive: {
+      isBooked: {
         type: Boolean,
         default: false
-      }
+      },
     },
     computed: {
       linkText() {
         return this.isActive ? 'Отказаться' : 'Забронировать'
-      }
-    },
-    methods: {
-      toggleBooking() {
-        this.$emit('toggle-booking', !this.isActive)
       }
     },
   }

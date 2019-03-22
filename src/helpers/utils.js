@@ -5,20 +5,25 @@
  * @author: Ilya Petrushenko <ilya.petrushenko@yandex.ru>
  * @since: 24.01.19 9:16
  */
+import moment from 'moment'
 
-import { head, last, sortBy } from 'lodash'
+import { DATE_FORMAT } from '@/app.constants'
 
-function findAppropriateCliche(items) {
-  let cliche = null
-  if (items.length > 0) {
-    const sorted = sortBy(items, ['designVer', 'setnumber']);
-    const lastRecord = last(sorted)
-    const filtred = sorted.filter(item => item.designVer === lastRecord.designVer)
-    cliche = head(filtred)
+export const getDate = (date, format = DATE_FORMAT) => {
+  let newDate = new Date()
+  const dateObj = moment(date, format)
+  if (date && dateObj.isValid()) {
+    const year = dateObj.get('year')
+    const month = dateObj.get('month')
+    const day = dateObj.get('date')
+    newDate = new Date(year, month, day)
   }
-  return cliche
+  return newDate
 }
 
+export const today = (format = DATE_FORMAT) => moment().format(format)
+
 export default {
-  findAppropriateCliche
+  getDate,
+  today,
 }

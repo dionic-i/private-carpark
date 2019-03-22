@@ -18,7 +18,7 @@ describe('test CarsFilter', () => {
     expect(wrapper.findAll('label').length).toBe(2)
     expect(wrapper.findAll(BaseSelect).length).toBe(2)
     expect(wrapper.findAll('label').at(0).text()).toBe('Max скорость, км/ч')
-    expect(wrapper.findAll('label').at(0).text()).toBe('Пробег, тыс. км.')
+    expect(wrapper.findAll('label').at(1).text()).toBe('Пробег, тыс. км.')
   })
 
   it('test methods', () => {

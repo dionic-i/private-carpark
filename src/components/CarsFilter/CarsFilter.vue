@@ -9,17 +9,20 @@
       <div class="column">
         <b-field label="Max скорость, км/ч">
           <base-select
-                  :items="speed"
+                  ref="speed"
+                  :items="speedRange"
                   :withEmpty="true"
-                  :value="speedValue"
-                  @select-item="onChangeMaxSpeed"
+                  :value="speed"
+                  @input="onChangeMaxSpeed"
           ></base-select>
         </b-field>
         <b-field label="Пробег, тыс. км.">
           <base-select
-                  :items="run"
+                  ref="run"
+                  :items="runRange"
                   :withEmpty="true"
-                  @select-item="onChangeCurrentRun"
+                  :value="run"
+                  @input="onChangeCurrentRun"
           ></base-select>
         </b-field>
       </div>
@@ -29,45 +32,43 @@
 
 <script>
 
-  import BaseSelect from '../BaseSelect/BaseSelect.vue'
+  import { BaseSelect } from '../BaseSelect'
 
   export default {
     name: 'CarsFilter',
     components: {
       BaseSelect
     },
-    data() {
-
-      const MAX_SPEED_RANGE = [
-        { id: 1, name: '50-100' },
-        { id: 2, name: '100-150' },
-        { id: 3, name: '150-200' },
-        { id: 4, name: '>200' },
-      ]
-
-      const RUN = [
-        { id: 1, name: '0-20' },
-        { id: 2, name: '20-40' },
-        { id: 3, name: '40-60' },
-        { id: 4, name: '60-100' },
-        { id: 5, name: '>100' },
-      ]
-
-      return {
-        speed: MAX_SPEED_RANGE,
-        run: RUN,
-        speedValue: 0,
-        runValue: 0
+    props: {
+      speedRange: {
+        type: Array,
+        default: () => {
+          return []
+        }
+      },
+      runRange: {
+        type: Array,
+        default: () => {
+          return []
+        }
+      },
+      speed: {
+        type: [Number, String],
+        default: 0
+      },
+      run: {
+        type: [Number, String],
+        default: 0
       }
     },
     methods: {
       onChangeMaxSpeed(value) {
-        this.speedValue = value
+        this.$emit('change-speed', value)
       },
       onChangeCurrentRun(value) {
-        this.runValue = value
+        this.$emit('change-run', value)
       }
-    },
+    }
   }
 </script>
 

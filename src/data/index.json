@@ -1,0 +1,91 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "title": "BMW X5",
+      "description": "Super car!!!",
+      "maxSpeed": 250,
+      "currentRun": 30,
+      "photo": "/static/images/bmw-x5.jpeg"
+    },
+    {
+      "id": 2,
+      "title": "Mazda СX5",
+      "description": "Super car!!!",
+      "maxSpeed": 200,
+      "currentRun": 40,
+      "photo": "/static/images/mazda-cx5.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "Жигули 01",
+      "description": "No, No, No...",
+      "maxSpeed": 120,
+      "currentRun": 90,
+      "photo": "/static/images/shiguli.jpeg"
+    },
+    {
+      "id": 4,
+      "title": "Lada Cross",
+      "description": "Not bad",
+      "maxSpeed": 165,
+      "currentRun": 50,
+      "photo": "/static/images/lada.jpeg"
+    },
+    {
+      "id": 5,
+      "title": "AlphaRomeo",
+      "description": "Super car!!!",
+      "maxSpeed": 320,
+      "currentRun": 10,
+      "photo": "/static/images/alpha.jpeg"
+    }
+  ],
+  "speedItems": [
+    {
+      "id": 1,
+      "min": 50,
+      "max": 100
+    },
+    {
+      "id": 2,
+      "min": 101,
+      "max": 150
+    },
+    {
+      "id": 3,
+      "min": 151,
+      "max": 200
+    },
+    {
+      "id": 4,
+      "min": 201
+    }
+  ],
+  "runItems": [
+    {
+      "id": 1,
+      "min": 0,
+      "max": 20
+    },
+    {
+      "id": 2,
+      "min": 21,
+      "max": 40
+    },
+    {
+      "id": 3,
+      "min": 41,
+      "max": 60
+    },
+    {
+      "id": 4,
+      "min": 61,
+      "max": 100
+    },
+    {
+      "id": 5,
+      "min": 101
+    }
+  ]
+}
