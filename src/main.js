@@ -5,9 +5,7 @@ import PortalVue from 'portal-vue'
 import App from './App.vue'
 import store from './store'
 
-import 'buefy/dist/buefy.css'
 import './assets/styles.scss'
-
 
 Vue.use(Buefy)
 Vue.use(PortalVue)

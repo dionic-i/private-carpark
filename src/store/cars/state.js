@@ -5,6 +5,8 @@
  * The initial state of the cars module.
  */
 
+import { today } from '@/helpers/utils'
+
 export default {
   cars: [],
 
@@ -14,9 +16,11 @@ export default {
 
   runItems: [],
 
-  speedValue: 0,
+  speedValue: null,
 
-  runValue: 0,
+  runValue: null,
 
   isLoading: false,
+
+  currentDate: today()
 }

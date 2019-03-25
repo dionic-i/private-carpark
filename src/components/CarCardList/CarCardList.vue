@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column">
-        <h2 class="subtitle">{{ title }}</h2>
+        <h2 class="subtitle has-text-weight-bold">{{ title }}</h2>
       </div>
     </div>
     <div class="columns is-multiline">

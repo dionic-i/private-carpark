@@ -2,7 +2,7 @@
   <div>
     <div class="columns">
       <div class="column">
-        <h2 class="subtitle">Фильтр</h2>
+        <h2 class="subtitle has-text-weight-bold">Фильтр</h2>
       </div>
     </div>
     <div class="columns">
@@ -11,7 +11,6 @@
           <base-select
                   ref="speed"
                   :items="speedRange"
-                  :withEmpty="true"
                   :value="speed"
                   @input="onChangeMaxSpeed"
           ></base-select>
@@ -20,11 +19,13 @@
           <base-select
                   ref="run"
                   :items="runRange"
-                  :withEmpty="true"
                   :value="run"
                   @input="onChangeCurrentRun"
           ></base-select>
         </b-field>
+        <div class="buttons">
+          <button class="button is-primary is-medium full-width" @click="onResetFilter">Сбросить фильтр</button>
+        </div>
       </div>
     </div>
   </div>
@@ -54,14 +55,17 @@
       },
       speed: {
         type: [Number, String],
-        default: 0
+        default: null
       },
       run: {
         type: [Number, String],
-        default: 0
+        default: null
       }
     },
     methods: {
+      onResetFilter() {
+        this.$emit('reset-filter')
+      },
       onChangeMaxSpeed(value) {
         this.$emit('change-speed', value)
       },

@@ -23,19 +23,30 @@ export const ChangeFilter = ({ commit }, {name, value}) => {
   commit(types.SET_FILTER_VALUE, {name, value})
 }
 
+export const ResetFilter = ({ commit }) => {
+  commit(types.RESET_FILTERS)
+}
+
 export const AddCarBooking = ({ commit }, payload) => {
   commit(types.ADD_CAR_BOOKING, payload)
   showInfo(`Машина успешно забронирована на ${payload.date}`)
 }
 
-export const CancelCarBooking = ({ commit }, id) => {
-  commit(types.CANCEL_CAR_BOOKING, {id, date: today()})
+export const CancelCarBooking = ({ commit, getters }, { id, date }) => {
+  const cancelDate = date || getters.currentDate
+  commit(types.CANCEL_CAR_BOOKING, {id, date: cancelDate})
   showInfo(`Бронирование машины успешно отменено`)
+}
+
+export const ChangeCurrentDay = ({ commit }, day) => {
+  commit(types.CHANGE_CURRENT_DAY, day)
 }
 
 export default {
   LoadInfo,
   ChangeFilter,
+  ResetFilter,
   AddCarBooking,
   CancelCarBooking,
+  ChangeCurrentDay,
 }

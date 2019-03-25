@@ -69,9 +69,8 @@
         this.$emit('add-car-booking', { id: this.carId, date })
       },
       cancelCarBooking() {
-        this.$emit('cancel-car-booking', this.carId)
+        this.$emit('cancel-car-booking', { id: this.carId })
       }
     }
   }
-
 </script>

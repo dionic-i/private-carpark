@@ -6,10 +6,12 @@
  */
 import moment from 'moment'
 import uniqBy from 'lodash/uniqBy'
+import sortBy from 'lodash/sortBy'
 
 import { make } from 'vuex-pathify'
 
 import { DATE_FORMAT } from '@/app.constants'
+import { getDate, getFirstAllowedDay, today } from '@/helpers/utils'
 
 import state from './state'
 
@@ -38,7 +40,7 @@ export default {
     return makeList(state.runItems)
   },
   carItems(state) {
-    const { cars, bookedCars, speedValue, runValue } = state
+    const { cars, bookedCars, speedValue, runValue, currentDate } = state
     let items = cars
 
     // Apply filters
@@ -54,10 +56,10 @@ export default {
     }
 
     // Apply booking
-    const today = moment().format(DATE_FORMAT)
+    const showedDay = moment(currentDate).format(DATE_FORMAT)
     items = items.map(car => ({
       ...car,
-      isBooked: carIsBooked(car, today, bookedCars)
+      isBooked: carIsBooked(car, showedDay, bookedCars)
     }))
 
     return items
@@ -65,7 +67,31 @@ export default {
   bookedDays(state) {
     return uniqBy(state.bookedCars, 'date').map(({ date }) => date)
   },
-  firstAllowedDay() {
+  bookedCars(state) {
+    const sortedBooking = sortBy(state.bookedCars, [function (book) {
+      return moment(book.date)
+    }])
 
+    return sortedBooking.map(({ id, date }) => {
+      const car = state.cars.find(obj => obj.id === id)
+      return {
+        id,
+        carName: car.title,
+        bookedDate: date
+      }
+    })
+  },
+  firstAllowedDay(state) {
+    let startDate = getDate(state.currentDate)
+    if (state.bookedCars.length > 0) {
+      const bookedDays = state.bookedCars.map(item => item.date)
+      startDate = getDate(getFirstAllowedDay(bookedDays, state.currentDate))
+    }
+    return startDate
+  },
+  todayCar(state) {
+    const now = state.currentDate
+    const bookedCar = state.bookedCars.find(item => item.date === now)
+    return bookedCar ? state.cars.find(item => item.id === bookedCar.id) : {}
   }
 }

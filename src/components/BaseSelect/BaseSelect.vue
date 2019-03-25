@@ -1,5 +1,6 @@
 <template>
   <b-select
+          :placeholder="placeholder"
           ref="selectElement"
           v-bind="selectOptions"
           v-on="$listeners"
@@ -45,6 +46,10 @@
         default: function () {
           return {}
         }
+      },
+      placeholder: {
+        type: String,
+        default: 'Select #'
       }
     },
     data() {

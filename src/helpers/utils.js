@@ -23,7 +23,23 @@ export const getDate = (date, format = DATE_FORMAT) => {
 
 export const today = (format = DATE_FORMAT) => moment().format(format)
 
+export const getFirstAllowedDay = (bookedDays = [], firstDate = '') => {
+  let startDate = moment(firstDate)
+  if (!startDate.isValid()) {
+    startDate = moment()
+  }
+
+  const checkBusy = (date) => bookedDays.indexOf(date.format(DATE_FORMAT)) !== -1
+  let isBusy = checkBusy(startDate)
+  while (isBusy) {
+    startDate.add(1, 'days')
+    isBusy = checkBusy(startDate)
+  }
+  return startDate
+}
+
 export default {
   getDate,
   today,
+  getFirstAllowedDay
 }
