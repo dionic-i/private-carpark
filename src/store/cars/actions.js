@@ -19,8 +19,8 @@ export const LoadInfo = async ({ commit }) => {
   commit(types.SET_STATE, false)
 }
 
-export const ChangeFilter = ({ commit }, {name, value}) => {
-  commit(types.SET_FILTER_VALUE, {name, value})
+export const ChangeFilter = ({ commit }, { name, value }) => {
+  commit(types.SET_FILTER_VALUE, { name, value })
 }
 
 export const ResetFilter = ({ commit }) => {
@@ -34,7 +34,7 @@ export const AddCarBooking = ({ commit }, payload) => {
 
 export const CancelCarBooking = ({ commit, getters }, { id, date }) => {
   const cancelDate = date || getters.currentDate
-  commit(types.CANCEL_CAR_BOOKING, {id, date: cancelDate})
+  commit(types.CANCEL_CAR_BOOKING, { id, date: cancelDate })
   showInfo(`Бронирование машины успешно отменено`)
 }
 
