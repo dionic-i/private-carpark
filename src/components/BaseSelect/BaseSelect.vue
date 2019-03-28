@@ -67,9 +67,6 @@
       },
     },
     methods: {
-      selectItem(value) {
-        this.$emit('select-item', value)
-      },
       focus() {
         if (this.$refs.selectElement && this.$refs.selectElement.focus) {
           this.$refs.selectElement.focus()

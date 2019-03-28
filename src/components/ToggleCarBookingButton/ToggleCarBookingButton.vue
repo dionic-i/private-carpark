@@ -1,12 +1,12 @@
 <template>
-  <div class="has-text-centered">
+  <div class="full-width">
     <a
             v-if="isAllowedBooking"
             href="#"
-            class="card-footer-item has-text-success"
+            class="car-booking-toggle-button card-footer-item has-text-success"
             @click.prevent="isVisible = true"
     >
-      Забронировать
+      {{ linkText }}
       <portal to="modals">
         <template v-if="isVisible">
           <car-booking-modal-window
@@ -19,11 +19,11 @@
     </a>
     <a
             href="#"
-            class="card-footer-item has-text-danger"
+            class="car-booking-toggle-button card-footer-item has-text-danger"
             v-else
             @click.prevent="cancelCarBooking"
     >
-      Отказаться
+      {{ linkText }}
     </a>
   </div>
 </template>
@@ -59,6 +59,9 @@
           ...this.$attrs
         }
       },
+      linkText() {
+        return this.isAllowedBooking ? 'Забронировать' : 'Отказаться'
+      }
     },
     methods: {
       hideBookingWindow() {

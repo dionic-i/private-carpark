@@ -13,10 +13,8 @@ export const getDate = (date, format = DATE_FORMAT) => {
   let newDate = new Date()
   const dateObj = moment(date, format)
   if (date && dateObj.isValid()) {
-    const year = dateObj.get('year')
-    const month = dateObj.get('month')
-    const day = dateObj.get('date')
-    newDate = new Date(year, month, day)
+    const [year, month, day, hours, minutes, seconds] = dateObj.toArray()
+    newDate = new Date(year, month, day, hours, minutes, seconds)
   }
   return newDate
 }

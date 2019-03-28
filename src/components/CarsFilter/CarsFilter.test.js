@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Buefy from 'buefy'
 import { mount } from '@vue/test-utils'
 import CarsFilter from './CarsFilter.vue'
-import BaseSelect from '../BaseSelect/BaseSelect.vue'
+import { BaseSelect } from '../BaseSelect'
 
 Vue.use(Buefy)
 
@@ -22,11 +22,17 @@ describe('test CarsFilter', () => {
   })
 
   it('test methods', () => {
-    const localThis = { speedValue: 0, runValue: 0 }
+    const events = {}
+    const $emit = (event, ...args) => { events[event] = [...args] }
+    const localThis = { speedValue: 0, runValue: 0, $emit }
+
     CarsFilter.methods.onChangeMaxSpeed.call(localThis, 2)
-    expect(localThis.speedValue).toEqual(2)
+    expect(events['change-speed']).toEqual([2])
 
     CarsFilter.methods.onChangeCurrentRun.call(localThis, 2)
-    expect(localThis.speedValue).toEqual(2)
+    expect(events['change-run']).toEqual([2])
+
+    CarsFilter.methods.onResetFilter.call(localThis)
+    expect(events['reset-filter']).toEqual([])
   })
 })

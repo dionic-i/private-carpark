@@ -36,8 +36,8 @@
                   @reset-filter="reset"
           ></cars-filter>
           <booked-cars-table
-              :bookedCars="bookedCars"
-              @cancel-car-booking="onCancelBooking"
+                  :bookedCars="bookedCars"
+                  @cancel-car-booking="onCancelBooking"
           >
           </booked-cars-table>
         </div>
@@ -64,7 +64,7 @@
       CarsFilter,
       BookedCarsTable
     },
-    data: function () {
+    data() {
       return {
         title: 'Мой автопарк',
       }

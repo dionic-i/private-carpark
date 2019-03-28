@@ -1,14 +1,14 @@
 /**
- * Description of actions.tets.js.
+ * Description of actions.test.js.
  *
  *
  * @author: Ilya Petrushenko <ilya.petrushenko@yandex.ru>
  * @since: 28.01.19 12:57
  */
+import data from '@/data'
 
 import actions from './actions'
 import * as types from './mutation-types'
-import data from '@/data'
 
 describe('CARS ACTIONS', () => {
   it('LoadInfo test', async () => {
@@ -23,4 +23,8 @@ describe('CARS ACTIONS', () => {
     expect(commit).toHaveBeenCalledWith(types.SET_RUN_ITEMS, runItems)
     expect(commit).toHaveBeenCalledWith(types.SET_STATE, false)
   })
+
+
+
+
 })
