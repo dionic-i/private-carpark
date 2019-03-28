@@ -28,6 +28,7 @@
           </template>
         </b-table>
         <button
+                id="cancelBooking"
                 class="button is-danger is-medium full-width"
                 :disabled="!selected"
                 @click="onCancelBooking"

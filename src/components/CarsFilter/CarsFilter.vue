@@ -9,6 +9,7 @@
       <div class="column">
         <b-field label="Max скорость, км/ч">
           <base-select
+                  id="speed"
                   ref="speed"
                   :items="speedRange"
                   :value="speed"
@@ -17,6 +18,7 @@
         </b-field>
         <b-field label="Пробег, тыс. км.">
           <base-select
+                  id="run"
                   ref="run"
                   :items="runRange"
                   :value="run"
